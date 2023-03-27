@@ -1,0 +1,40 @@
+<div class="row aligns-item-center">
+  <div class="col-5">
+    <h5 class="role-box-title">All Products</h5>
+    <app-role-box [items]="availableItems"></app-role-box>
+  </div>
+  <div class="col-2 text-center d-flex flex-column gap-3">
+    <button
+      class="btn btn-light"
+      type="button"
+      (click)="onTransferItems(availableItems, assignedItems)"
+    >
+      Add
+    </button>
+    <button
+      class="btn btn-light"
+      type="button"
+      (click)="onTransferAll(availableItems, assignedItems)"
+    >
+      Add All
+    </button>
+    <button
+      class="btn btn-light"
+      type="button"
+      (click)="onTransferItems(assignedItems, availableItems)"
+    >
+      Remove
+    </button>
+    <button
+      class="btn btn-light"
+      type="button"
+      (click)="onTransferAll(assignedItems, availableItems)"
+    >
+      Remove All
+    </button>
+  </div>
+  <div class="col-5">
+    <h5 class="role-box-title">Available Product</h5>
+    <app-role-box [items]="assignedItems"></app-role-box>
+  </div>
+</div>

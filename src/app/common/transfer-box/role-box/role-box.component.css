@@ -1,0 +1,47 @@
+.role-box {
+  max-height: 500px;
+  padding: 16px 0;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  background-color: white;
+}
+.role-box__input {
+  border: none;
+
+  margin: 0 16px 8px 16px;
+}
+input.role-box__input {
+  width: 100%;
+  padding: 13px;
+  border-radius: 4px;
+  background-color: #f8f8f9;
+}
+.role-box__content {
+  height: 215px;
+  overflow-y: scroll;
+}
+/* width */
+.role-box__content::-webkit-scrollbar {
+  width: 4px;
+}
+/* Track */
+.role-box__content::-webkit-scrollbar-track {
+  background: #edeff1;
+}
+/* Handle */
+.role-box__content::-webkit-scrollbar-thumb {
+  background: #b5bdc5;
+}
+/* Handle on hover */
+.role-box__content::-webkit-scrollbar-thumb:hover {
+  background: rgb(143, 143, 143);
+}
+.role-box__element {
+  padding: 8px 8px;
+  margin: 0 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.role-box__element:hover {
+  background-color: #f8f8f9;
+}

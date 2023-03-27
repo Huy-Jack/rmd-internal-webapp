@@ -1,0 +1,41 @@
+<div class="cursor-pointer border rounded p-4 shadow-sm">
+  <div class="d-flex justify-content-between">
+    <h4>{{ data.name }}</h4>
+    <button class="btn btn-outline-primary" (click)="onTableClick(data)">
+      Detail
+    </button>
+  </div>
+  <!-- Progress -->
+  <div
+    *ngIf="!disableProgress"
+    class="fw-bold"
+    [class]="getClass(data.progress)"
+  >
+    {{ getProgressName(data.progress) }}
+  </div>
+  <!-- Product List -->
+  <ul class="list-group my-3">
+    <li
+      *ngFor="let item of data.productList"
+      class="list-group-item"
+      (click)="onProductClick(item)"
+    >
+      <div class="d-flex justify-content-between list-group-content">
+        <span>{{ item.name }}</span>
+        <strong>${{ item.price }}</strong>
+      </div>
+    </li>
+  </ul>
+  <!-- Total -->
+  <div
+    *ngIf="!disableTotalPrice"
+    class="border border-primary rounded p-2 text-center"
+  >
+    <div>
+      Discount: <strong> ${{ data.discountTotalPrice || 0 }} </strong>
+    </div>
+    <div>
+      Total: <strong> ${{ data.totalPrice }} </strong>
+    </div>
+  </div>
+</div>

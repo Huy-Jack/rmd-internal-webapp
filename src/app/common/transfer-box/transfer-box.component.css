@@ -1,0 +1,21 @@
+.functional-btn {
+  display: block;
+  padding: 6px 0;
+  margin: 6px auto;
+  min-width: 80px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background-color: white;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+.role-box-title {
+  margin-bottom: 8px;
+}
+.aligns-item-center {
+  display: flex;
+  align-items: center;
+  margin: 32px 16px;
+}

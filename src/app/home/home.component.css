@@ -1,0 +1,42 @@
+.center-block {
+  height: 90vh;
+  display: flex;
+  height: inherit;
+  align-items: center;
+  justify-content: center;
+}
+.bg-img {
+  height: 95vh;
+  background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.01),
+      rgba(255, 255, 255, 1) 85%
+    ),
+    radial-gradient(
+      ellipse at top left,
+      rgba(13, 110, 253, 0.5),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at top right,
+      rgba(255, 228, 132, 0.5),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at center right,
+      rgba(112.520718, 44.062154, 249.437846, 0.5),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at center left,
+      rgba(214, 51, 132, 0.5),
+      transparent 50%
+    );
+}
+.logo {
+  width: 200px;
+}
+.brand-name {
+  font-size: 100px;
+  font-weight: 900;
+}

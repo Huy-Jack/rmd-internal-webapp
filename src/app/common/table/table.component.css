@@ -1,0 +1,9 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+.list-group-item:hover {
+  background-color: var(--bs-primary);
+}
+.list-group-item:hover .list-group-content {
+  color: white;
+}

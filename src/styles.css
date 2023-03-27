@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: "Open Sans", sans-serif !important;
+}
+a {
+  cursor: pointer;
+}
+.form-control {
+  box-shadow: none !important;
+}
+.form-check-input {
+  box-shadow: none !important;
+}
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.button-group button {
+  min-width: 100px;
+}

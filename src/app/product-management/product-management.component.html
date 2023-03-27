@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row mt-5">
+    <app-transfer-box
+      [isLoading]="isLoadingRights"
+      [availableItems]="allProducts"
+      [assignedItems]="assignedProducts"
+      (assignedItemsChanged)="onAssignedRightsChange($event)"
+    ></app-transfer-box>
+  </div>
+  <div class="button-group">
+    <button type="button" class="btn btn-primary" (click)="onSave()">
+      Save
+    </button>
+    <button type="button" class="btn btn-light" (click)="onCancel()">
+      Cancel
+    </button>
+  </div>
+</div>

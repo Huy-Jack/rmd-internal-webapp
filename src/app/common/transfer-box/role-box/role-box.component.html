@@ -1,0 +1,27 @@
+<div class="role-box border border-primary-subtle">
+  <div class="role-box__input">
+    <input
+      class="form-control"
+      type="text"
+      name="search"
+      autocomplete="off"
+      placeholder="Search..."
+      [(ngModel)]="searchText"
+    />
+  </div>
+
+  <div class="role-box__content">
+    <ng-container *ngFor="let item of items | filter : searchText">
+      <div *ngIf="!item.hide" class="checkbox role-box__element">
+        <label>
+          <input
+            type="checkbox"
+            class="form-check-input"
+            [(ngModel)]="item.selected"
+          />
+          {{ item.name }}
+        </label>
+      </div>
+    </ng-container>
+  </div>
+</div>
