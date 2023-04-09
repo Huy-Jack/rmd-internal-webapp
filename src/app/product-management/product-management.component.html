@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="!loadingService.isLoading" class="container">
   <div class="row mt-5">
     <app-transfer-box
       [isLoading]="isLoadingRights"

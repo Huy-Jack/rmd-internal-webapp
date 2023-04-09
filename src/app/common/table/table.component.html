@@ -1,41 +1,101 @@
-<div class="cursor-pointer border rounded p-4 shadow-sm">
+<div class="border rounded p-4 shadow-sm">
   <div class="d-flex justify-content-between">
-    <h4>{{ data.name }}</h4>
-    <button class="btn btn-outline-primary" (click)="onTableClick(data)">
-      Detail
+    <!-- TODO: add table id Here -->
+    <h4>
+      Table: <strong>{{ tableId }}</strong>
+    </h4>
+    <button
+      *ngIf="type === 'payment'"
+      class="btn btn-outline-primary"
+      (click)="onDetailClick(productList)"
+    >
+      Pay
     </button>
   </div>
-  <!-- Progress -->
-  <div
-    *ngIf="!disableProgress"
-    class="fw-bold"
-    [class]="getClass(data.progress)"
-  >
-    {{ getProgressName(data.progress) }}
-  </div>
+
   <!-- Product List -->
-  <ul class="list-group my-3">
-    <li
-      *ngFor="let item of data.productList"
-      class="list-group-item"
-      (click)="onProductClick(item)"
-    >
+  <ng-container *ngIf="!!productList">
+    <ul class="list-group my-3">
+      <li class="list-group-item">
+        <div class="row list-group-content">
+          <div class="col">
+            <strong>Name</strong>
+          </div>
+          <div *ngIf="type === 'order'" class="col-3">
+            <strong>Status</strong>
+          </div>
+          <div class="col-2 text-end">
+            <strong>Size</strong>
+          </div>
+          <div *ngIf="type === 'order'" class="col-2 text-end">
+            <strong>Quantity</strong>
+          </div>
+          <ng-container *ngIf="type === 'payment'">
+            <div class="col-2 text-end">
+              <strong>Unit Price</strong>
+            </div>
+            <div class="col-2 text-end">
+              <strong>Total</strong>
+            </div>
+          </ng-container>
+        </div>
+      </li>
+      <li
+        *ngFor="let item of productList | keyvalue"
+        class="list-group-item cursor-pointer"
+        (click)="onProductClick(item.key, item.value)"
+      >
+        <div class="row list-group-content">
+          <div class="col">
+            <span>{{ item.value.productName }}</span>
+          </div>
+          <!-- Status -->
+          <div *ngIf="type === 'order'" class="col-3">
+            <strong [class]="getClass(item.value.productStatus)">
+              {{ getProgressName(item.value.productStatus) }}
+            </strong>
+          </div>
+          <!-- Size -->
+          <div class="col-2 text-end">
+            <strong>{{ item.value.productSize }}</strong>
+          </div>
+          <!-- Quantity -->
+          <div *ngIf="type === 'order'" class="col-2 text-end">
+            <strong>{{ item.value.productQuantity }}</strong>
+          </div>
+          <ng-container *ngIf="type === 'payment'">
+            <!-- Unit Price -->
+            <div class="col-2 text-end">
+              <strong>${{ item.value.productPrice }}</strong>
+            </div>
+            <!-- Total Price -->
+            <div class="col-2 text-end">
+              <strong>
+                ${{
+                  getTotalPrice(
+                    item.value.productQuantity,
+                    item.value.productPrice
+                  )
+                }}
+              </strong>
+            </div>
+          </ng-container>
+        </div>
+      </li>
+    </ul>
+  </ng-container>
+
+  <!-- Total -->
+  <ul *ngIf="type === 'payment'" class="list-group my-3">
+    <li class="list-group-item">
       <div class="d-flex justify-content-between list-group-content">
-        <span>{{ item.name }}</span>
-        <strong>${{ item.price }}</strong>
+        <strong>Discount</strong>
+        <strong> $0 </strong>
+      </div>
+      <div class="d-flex justify-content-between list-group-content">
+        <strong>Total</strong>
+        <strong> ${{ totalPrice }} </strong>
       </div>
     </li>
   </ul>
-  <!-- Total -->
-  <div
-    *ngIf="!disableTotalPrice"
-    class="border border-primary rounded p-2 text-center"
-  >
-    <div>
-      Discount: <strong> ${{ data.discountTotalPrice || 0 }} </strong>
-    </div>
-    <div>
-      Total: <strong> ${{ data.totalPrice }} </strong>
-    </div>
-  </div>
 </div>

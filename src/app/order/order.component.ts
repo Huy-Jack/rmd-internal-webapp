@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { tableDataList } from '../fakedata';
-import { Product, TableData } from '../interface/interface';
+import { PROGRESS_LIST } from '../interface/constant';
+import { FirebaseProduct } from '../interface/interface';
+import { TableList } from '../interface/type';
+import { FirebaseService } from '../services/firebase.service';
 import { ModalService } from '../services/modal.service';
 
 @Component({
@@ -9,23 +11,41 @@ import { ModalService } from '../services/modal.service';
   styleUrls: ['./order.component.css'],
 })
 export class OrderComponent {
-  listTableData: Array<TableData> = tableDataList;
-  currTableData: TableData;
-  currProduct: Product;
+  readonly PROGRESS = PROGRESS_LIST;
+  tableList: TableList;
+  currProduct: FirebaseProduct;
+  currProductId: string;
+  currTableId: number;
+  searchText: number;
 
-  constructor(public modal: ModalService) {}
-
-  onTableClick(tableData: TableData) {
-    this.currTableData = tableData;
-    setTimeout(() => {
-      this.modal.onOpenModal('tableDetailModal');
-    }, 0);
+  constructor(
+    private modal: ModalService,
+    private firebaseService: FirebaseService
+  ) {
+    this.firebaseService.tableListObservable.subscribe((tableList) => {
+      this.tableList = tableList;
+    });
   }
-  onProductClick(product: Product) {
-    console.log('product: ', product);
-    this.currProduct = product;
+
+  onProductClick(
+    data: { key: string; product: FirebaseProduct },
+    index: number
+  ) {
+    this.currProduct = data.product;
+    this.currProductId = data.key;
+    this.currTableId = index;
     setTimeout(() => {
       this.modal.onOpenModal('productDetailModal');
     }, 0);
+  }
+
+  onProgressClick(progress: keyof typeof PROGRESS_LIST) {
+    this.currProduct.productStatus = progress;
+    this.firebaseService.updateProduct(
+      this.currTableId,
+      this.currProductId,
+      this.currProduct
+    );
+    this.modal.onCloseModal('productDetailModal');
   }
 }

@@ -1,5 +1,5 @@
 export const PROGRESS_LIST = {
-  noOrder: 'NO ORDER',
-  orderReceived: 'ORDER RECEIVED',
+  done: 'DONE',
+  orderReceived: 'RECEIVED',
   inProgress: 'IN PROGRESS',
 } as const;

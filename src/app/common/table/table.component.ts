@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { forIn } from 'lodash';
 import { PROGRESS_LIST } from 'src/app/interface/constant';
-import { Product, TableData } from 'src/app/interface/interface';
-import { Progress } from 'src/app/interface/type';
+import { FirebaseProduct } from 'src/app/interface/interface';
+import { FirebaseTable, Progress } from 'src/app/interface/type';
 
 @Component({
   selector: 'app-table',
@@ -9,32 +10,45 @@ import { Progress } from 'src/app/interface/type';
   styleUrls: ['./table.component.css'],
 })
 export class TableComponent {
-  @Input() data: TableData;
-  @Input() disableProgress: boolean = false;
-  @Input() disableTotalPrice: boolean = false;
-  @Output() tableClick = new EventEmitter();
+  @Input() tableId: number;
+  @Input() productList: FirebaseTable;
+  @Input() type: 'order' | 'payment';
+
+  @Output() detailClick = new EventEmitter();
   @Output() productClick = new EventEmitter();
 
   readonly PROGRESS = PROGRESS_LIST;
+
+  get totalPrice() {
+    let sum = 0;
+    forIn(this.productList, (product) => {
+      sum += product.productPrice;
+    });
+    return sum;
+  }
 
   constructor() {}
 
   getProgressName(progress: Progress) {
     return PROGRESS_LIST[progress];
   }
+  getTotalPrice(quantity: number, price: number) {
+    return quantity * price;
+  }
   getClass(progress: Progress) {
     const action: Record<Progress, string> = {
-      noOrder: 'text-success',
+      done: 'text-success',
       orderReceived: 'text-danger',
       inProgress: 'text-primary',
     };
     return action[progress];
   }
 
-  onTableClick(data: TableData) {
-    this.tableClick.emit(data);
+  onDetailClick(productList: FirebaseTable) {
+    this.detailClick.emit(productList);
   }
-  onProductClick(data: Product) {
+  onProductClick(key: string, product: FirebaseProduct) {
+    const data = { key: key, product: product };
     this.productClick.emit(data);
   }
 
