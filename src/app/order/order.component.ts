@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { PROGRESS_LIST } from '../interface/constant';
 import { FirebaseProduct } from '../interface/interface';
-import { TableList } from '../interface/type';
+import { FirebaseTable } from '../interface/type';
 import { FirebaseService } from '../services/firebase.service';
+import { LoadingService } from '../services/loading.service';
 import { ModalService } from '../services/modal.service';
 
 @Component({
@@ -12,13 +13,14 @@ import { ModalService } from '../services/modal.service';
 })
 export class OrderComponent {
   readonly PROGRESS = PROGRESS_LIST;
-  tableList: TableList;
+  tableList: FirebaseTable[];
   currProduct: FirebaseProduct;
   currProductId: string;
   currTableId: number;
   searchText: number;
 
   constructor(
+    public loadingService: LoadingService,
     private modal: ModalService,
     private firebaseService: FirebaseService
   ) {

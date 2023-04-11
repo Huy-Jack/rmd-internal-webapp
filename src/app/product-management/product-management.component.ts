@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TransferBoxItem } from '../interface/interface';
+import { AlertService } from '../services/alert.service';
 import { ApiService } from '../services/api.service';
 import { LoadingService } from '../services/loading.service';
 
@@ -17,21 +18,17 @@ export class ProductManagementComponent implements OnInit {
   constructor(
     public loadingService: LoadingService,
     private router: Router,
-    private api: ApiService
+    private api: ApiService,
+    private alert: AlertService
   ) {}
 
   ngOnInit(): void {
     this.getAllProduct();
   }
 
-  onAssignedRightsChange(addedRoles: Array<TransferBoxItem>) {
-    const addedRoleValues: Array<string | number> = addedRoles.map(
-      (role) => role.value
-    );
-    // this.formData.controls.availableRights.patchValue(addedRoleValues);
-  }
+  onAssignedRightsChange(addedRoles: Array<TransferBoxItem>) {}
+
   onSave() {
-    // TODO: call API
     this.updateAvailableProducts();
   }
   onCancel() {
@@ -53,9 +50,12 @@ export class ProductManagementComponent implements OnInit {
     });
   }
   private updateAvailableProducts() {
+    this.loadingService.isLoading = true;
     const ids = this.getIds(this.assignedProducts);
     this.api.updateAvailableProducts(ids).subscribe((_res) => {
+      this.loadingService.isLoading = false;
       this.router.navigateByUrl('/home');
+      this.alert.successMessage = 'Save Successfully';
     });
   }
   private getIds(list: Array<TransferBoxItem>) {

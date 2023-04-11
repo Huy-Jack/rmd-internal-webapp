@@ -9,6 +9,8 @@ import { TableComponent } from './table/table.component';
 import { RoleBoxComponent } from './transfer-box/role-box/role-box.component';
 import { TransferBoxComponent } from './transfer-box/transfer-box.component';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
+import { SizePipe } from './pipes/size.pipe';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator
     TransferBoxComponent,
     TableComponent,
     LoadingIndicatorComponent,
+    SizePipe,
+    AlertComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +35,8 @@ import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator
     TransferBoxComponent,
     TableComponent,
     LoadingIndicatorComponent,
+    SizePipe,
+    AlertComponent,
   ],
 })
 export class CommonComponentModule {}

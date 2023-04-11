@@ -1,83 +1,85 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12 mt-5">
-      <h1>Search Table</h1>
-      <input
-        class="form-control"
-        type="number"
-        placeholder="Enter table number..."
-        [(ngModel)]="searchText"
-      />
+<ng-container *ngIf="!loadingService.isLoading">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mt-100">
+        <h1>Search Table</h1>
+        <input
+          class="form-control"
+          type="number"
+          placeholder="Enter table number..."
+          [(ngModel)]="searchText"
+        />
+      </div>
     </div>
   </div>
-</div>
 
-<div class="container mt-5">
-  <div class="row">
-    <ng-container *ngFor="let productList of tableList; index as idx">
-      <div
-        *ngIf="(!searchText || searchText === idx + 1) && !!productList"
-        class="col-6 mb-4"
-      >
-        <app-table
-          [tableId]="idx + 1"
-          [productList]="productList"
-          [type]="'order'"
-          (productClick)="onProductClick($event, idx)"
-        ></app-table>
-      </div>
-    </ng-container>
+  <div class="container mt-5">
+    <div class="row">
+      <ng-container *ngFor="let productList of tableList; index as idx">
+        <div
+          *ngIf="(!searchText || searchText === idx + 1) && !!productList"
+          class="col-6 mb-4"
+        >
+          <app-table
+            [tableId]="idx + 1"
+            [productList]="productList"
+            [type]="'order'"
+            (productClick)="onProductClick($event, idx)"
+          ></app-table>
+        </div>
+      </ng-container>
+    </div>
   </div>
-</div>
-<!-- Product Modal -->
-<div
-  *ngIf="!!currProduct"
-  class="modal fade"
-  id="productDetailModal"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5">{{ currProduct.productName }}</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <h6><strong>Description:</strong></h6>
-        <p>{{ currProduct.productDescription }}</p>
+  <!-- Product Modal -->
+  <div
+    *ngIf="!!currProduct"
+    class="modal fade"
+    id="productDetailModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">{{ currProduct.productName }}</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <h6><strong>Description:</strong></h6>
+          <p>{{ currProduct.productDescription }}</p>
 
-        <div class="row">
-          <div class="col-4">
-            <button
-              class="btn btn-outline-danger w-100"
-              (click)="onProgressClick('orderReceived')"
-            >
-              {{ PROGRESS.orderReceived }}
-            </button>
-          </div>
-          <div class="col-4">
-            <button
-              class="btn btn-outline-primary w-100"
-              (click)="onProgressClick('inProgress')"
-            >
-              {{ PROGRESS.inProgress }}
-            </button>
-          </div>
-          <div class="col-4">
-            <button
-              class="btn btn-outline-success w-100"
-              (click)="onProgressClick('done')"
-            >
-              {{ PROGRESS.done }}
-            </button>
+          <div class="row">
+            <div class="col-4">
+              <button
+                class="btn btn-outline-danger w-100"
+                (click)="onProgressClick('orderReceived')"
+              >
+                {{ PROGRESS.orderReceived }}
+              </button>
+            </div>
+            <div class="col-4">
+              <button
+                class="btn btn-outline-primary w-100"
+                (click)="onProgressClick('inProgress')"
+              >
+                {{ PROGRESS.inProgress }}
+              </button>
+            </div>
+            <div class="col-4">
+              <button
+                class="btn btn-outline-success w-100"
+                (click)="onProgressClick('done')"
+              >
+                {{ PROGRESS.done }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</ng-container>

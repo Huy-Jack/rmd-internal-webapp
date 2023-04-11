@@ -1,12 +1,12 @@
 .center-block {
-  height: 90vh;
+  height: 100vh;
   display: flex;
   height: inherit;
   align-items: center;
   justify-content: center;
 }
 .bg-img {
-  height: 90vh;
+  height: 100vh;
   background-image: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.01),

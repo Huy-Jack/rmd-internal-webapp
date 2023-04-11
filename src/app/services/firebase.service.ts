@@ -1,18 +1,18 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   AngularFireDatabase,
   AngularFireObject,
 } from '@angular/fire/compat/database';
 import { BehaviorSubject } from 'rxjs';
 import { FirebaseProduct } from '../interface/interface';
-import { TableList } from '../interface/type';
+import { FirebaseTable } from '../interface/type';
 import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseService {
-  private _tableList$ = new BehaviorSubject<TableList>([]);
+  private _tableList$ = new BehaviorSubject<FirebaseTable[]>([]);
   private productsRef: AngularFireObject<any>;
 
   public get tableListObservable() {
@@ -23,7 +23,7 @@ export class FirebaseService {
     return this._tableList$.value;
   }
 
-  public set tableList(value: TableList) {
+  public set tableList(value: FirebaseTable[]) {
     this._tableList$.next(value);
   }
 
@@ -46,7 +46,7 @@ export class FirebaseService {
   private subscribeFirebase() {
     this.loadingService.isLoading = true;
     this.db
-      .object<TableList>('/tableorderedproducts/')
+      .object<FirebaseTable[]>('/tableorderedproducts/')
       .valueChanges()
       .subscribe((productList) => {
         this.loadingService.isLoading = false;

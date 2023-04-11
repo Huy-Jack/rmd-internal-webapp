@@ -1,76 +1,92 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12 mt-5">
-      <h1>Search Table</h1>
-      <input
-        class="form-control"
-        type="number"
-        placeholder="Enter table number..."
-        [(ngModel)]="searchText"
-      />
+<ng-container *ngIf="!loadingService.isLoading">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mt-100">
+        <h1>Search Table</h1>
+        <input
+          class="form-control"
+          type="number"
+          placeholder="Enter table number..."
+          [(ngModel)]="searchText"
+        />
+      </div>
     </div>
   </div>
-</div>
 
-<div class="container mt-5">
-  <div class="row">
-    <ng-container *ngFor="let productList of tableList; index as idx">
-      <div *ngIf="!searchText || searchText === idx + 1" class="col-6 mb-4">
-        <app-table
-          [tableId]="idx + 1"
-          [productList]="productList"
-          [type]="'payment'"
-          (detailClick)="onDetailClick($event)"
-        ></app-table>
-      </div>
-    </ng-container>
+  <div class="container mt-5">
+    <div class="row">
+      <ng-container *ngFor="let productList of tableList; index as idx">
+        <div *ngIf="!searchText || searchText === idx + 1" class="col-6 mb-4">
+          <app-table
+            [tableId]="idx + 1"
+            [productList]="productList"
+            [type]="'payment'"
+            (detailClick)="onDetailClick($event)"
+          ></app-table>
+        </div>
+      </ng-container>
+    </div>
   </div>
-</div>
 
-<!-- Payment Modal -->
-<div
-  *ngIf="!!currentTable"
-  class="modal fade"
-  id="paymentDetailModal"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5">Table ID</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <span>Total: </span> <strong>${{ totalPrice }}</strong>
-        <hr />
-        <div class="row">
-          <div class="col-4">
-            <label>Money Received</label>
-            <input
-              type="number"
-              class="form-control"
-              [(ngModel)]="moneyReceived"
-            />
+  <!-- Payment Modal -->
+  <div
+    *ngIf="!!currentTable"
+    class="modal fade"
+    id="paymentDetailModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Table ID</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>
+              <span>Phone Number</span>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="phoneNumber"
+              />
+            </label>
           </div>
-          <div class="col-8">
-            <label>Change</label>
-            <input class="form-control" [value]="'$' + change" disabled />
+          <span>Total: </span> <strong>${{ totalPrice }}</strong>
+          <hr />
+          <div class="row">
+            <div class="col-4">
+              <label>Money Received</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="moneyReceived"
+              />
+            </div>
+            <div class="col-8">
+              <label>Change</label>
+              <input class="form-control" [value]="'$' + change" disabled />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-          Confirm
-        </button>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+            Confirm
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ng-container>

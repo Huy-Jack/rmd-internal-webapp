@@ -1,11 +1,13 @@
 <div *ngIf="!loadingService.isLoading" class="container">
-  <div class="row mt-5">
-    <app-transfer-box
-      [isLoading]="isLoadingRights"
-      [availableItems]="allProducts"
-      [assignedItems]="assignedProducts"
-      (assignedItemsChanged)="onAssignedRightsChange($event)"
-    ></app-transfer-box>
+  <div class="row">
+    <div class="col-12 mt-100">
+      <app-transfer-box
+        [isLoading]="isLoadingRights"
+        [availableItems]="allProducts"
+        [assignedItems]="assignedProducts"
+        (assignedItemsChanged)="onAssignedRightsChange($event)"
+      ></app-transfer-box>
+    </div>
   </div>
   <div class="button-group">
     <button type="button" class="btn btn-primary" (click)="onSave()">

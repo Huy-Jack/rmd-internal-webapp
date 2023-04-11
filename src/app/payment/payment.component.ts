@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { forIn } from 'lodash';
-import { FirebaseProduct } from '../interface/interface';
-import { FirebaseTable, TableList } from '../interface/type';
+import { FirebaseTable } from '../interface/type';
 import { FirebaseService } from '../services/firebase.service';
+import { LoadingService } from '../services/loading.service';
 import { ModalService } from '../services/modal.service';
 
 @Component({
@@ -11,10 +11,11 @@ import { ModalService } from '../services/modal.service';
   styleUrls: ['./payment.component.css'],
 })
 export class PaymentComponent {
-  tableList: TableList;
+  tableList: FirebaseTable[];
   currentTable: FirebaseTable;
   moneyReceived: number;
   searchText: number;
+  phoneNumber: string;
 
   get totalPrice() {
     let sum = 0;
@@ -30,21 +31,24 @@ export class PaymentComponent {
   }
 
   constructor(
+    public loadingService: LoadingService,
     private modal: ModalService,
     private firebaseService: FirebaseService
   ) {
     this.firebaseService.tableListObservable.subscribe((tableList) => {
-      this.tableList = this.roundPrice(tableList);
+      this.tableList = this.getFormattedTableList(tableList);
     });
   }
   onDetailClick(table: FirebaseTable) {
     this.currentTable = table;
+    this.phoneNumber = '';
+    this.moneyReceived = 0;
     setTimeout(() => {
       this.modal.onOpenModal('paymentDetailModal');
     }, 0);
   }
 
-  private roundPrice(tableList: TableList) {
+  private getFormattedTableList(tableList: FirebaseTable[]) {
     return tableList.map((productList) => {
       const productListClone = productList;
       forIn(productListClone, (value, key) => {

@@ -27,6 +27,14 @@ export class TableComponent {
     return sum;
   }
 
+  get receivedOrderNumber() {
+    let count = 0;
+    forIn(this.productList, (value) => {
+      value.productStatus === 'orderReceived' && count++;
+    });
+    return count;
+  }
+
   constructor() {}
 
   getProgressName(progress: Progress) {
@@ -51,6 +59,4 @@ export class TableComponent {
     const data = { key: key, product: product };
     this.productClick.emit(data);
   }
-
-  onProgressClick(progress: string) {}
 }
