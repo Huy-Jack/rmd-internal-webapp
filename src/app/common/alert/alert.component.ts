@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
@@ -15,15 +15,17 @@ export class AlertComponent {
   constructor(private alert: AlertService) {
     this.alert.successMessageObservable.subscribe((msg) => {
       this.successMessage = msg;
-      setTimeout(() => {
-        this.successMessage = '';
-      }, this.timer);
+      !!this.successMessage &&
+        setTimeout(() => {
+          this.successMessage = '';
+        }, this.timer);
     });
     this.alert.errorMessageObservable.subscribe((msg) => {
       this.errorMessage = msg;
-      setTimeout(() => {
-        this.errorMessage = '';
-      }, this.timer);
+      !!this.successMessage &&
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, this.timer);
     });
   }
 }
