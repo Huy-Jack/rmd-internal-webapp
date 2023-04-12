@@ -37,26 +37,41 @@ export class ProductManagementComponent implements OnInit {
 
   private getAllProduct() {
     this.loadingService.isLoading = true;
-    this.api.getAllProducts().subscribe((res) => {
-      this.allProducts = res.map((product) => {
-        const transferBoxItem: TransferBoxItem = {
-          name: product.name,
-          value: product.id,
-          selected: false,
-        };
-        return transferBoxItem;
-      });
-      this.loadingService.isLoading = false;
-    });
+    this.api
+      .getAllProducts()
+      .subscribe({
+        next: (res) => {
+          this.allProducts = res.map((product) => {
+            const transferBoxItem: TransferBoxItem = {
+              name: product.name,
+              value: product.id,
+              selected: false,
+            };
+            return transferBoxItem;
+          });
+        },
+        error: ({ message }) => {
+          this.alert.errorMessage = message;
+        },
+      })
+      .add(() => (this.loadingService.isLoading = false));
   }
   private updateAvailableProducts() {
     this.loadingService.isLoading = true;
     const ids = this.getIds(this.assignedProducts);
-    this.api.updateAvailableProducts(ids).subscribe((_res) => {
-      this.loadingService.isLoading = false;
-      this.router.navigateByUrl('/home');
-      this.alert.successMessage = 'Save Successfully';
-    });
+    this.api
+      .updateAvailableProducts(ids)
+      .subscribe({
+        next: (_res) => {
+          this.loadingService.isLoading = false;
+          this.router.navigateByUrl('/home');
+          this.alert.successMessage = 'Save Successfully';
+        },
+        error: ({ message }) => {
+          this.alert.errorMessage = message;
+        },
+      })
+      .add(() => (this.loadingService.isLoading = false));
   }
   private getIds(list: Array<TransferBoxItem>) {
     return list.map((item) => item.value);

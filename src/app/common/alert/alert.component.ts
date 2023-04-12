@@ -15,17 +15,15 @@ export class AlertComponent {
   constructor(private alert: AlertService) {
     this.alert.successMessageObservable.subscribe((msg) => {
       this.successMessage = msg;
-      !!this.successMessage &&
-        setTimeout(() => {
-          this.successMessage = '';
-        }, this.timer);
+      setTimeout(() => {
+        this.successMessage = '';
+      }, this.timer);
     });
     this.alert.errorMessageObservable.subscribe((msg) => {
       this.errorMessage = msg;
-      !!this.successMessage &&
-        setTimeout(() => {
-          this.errorMessage = '';
-        }, this.timer);
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, this.timer);
     });
   }
 }
